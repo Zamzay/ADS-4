@@ -32,8 +32,11 @@ int countPairs2(int* arr, int len, int value) {
         left += leftCount;
         right -= rightCount;
       }
-    } else if (sum < value) left++;
-    else right--;
+    } else if (sum < value) {
+      left++;
+    } else {
+      right--;
+    }
   }
   return count;
 }
@@ -70,8 +73,11 @@ int countPairs3(int* arr, int len, int value)
         if (arr[mid] == target) {
           lastPos = mid;
           left = mid + 1;
-        } else if (arr[mid] < target) left = mid + 1;
-        else right = mid - 1;
+        } else if (arr[mid] < target) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
       }
       int rightCount = lastPos - firstPos + 1;
       if (currentVal == target) count += leftCount * (leftCount - 1) / 2;
