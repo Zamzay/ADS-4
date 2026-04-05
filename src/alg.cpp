@@ -1,17 +1,15 @@
 // Copyright 2021 NNTU-CS
-int countPairs1(int* arr, int len, int value)
-{
+int countPairs1(int* arr, int len, int value) {
   int count = 0;
   for (int i = 0; i < len-1; i++) {
-    for (int j = 1; j < len; j++) {
+    for (int j = i + 1; j < len; j++) {
       if ((arr[i] + arr[j]) == value) count++;
     }
   }
   return count;
 }
 
-int countPairs2(int* arr, int len, int value)
-{
+int countPairs2(int* arr, int len, int value) {
   if (len < 2) return 0;
   int count = 0;
   int left = 0;
@@ -20,9 +18,11 @@ int countPairs2(int* arr, int len, int value)
     int sum = arr[left] + arr[right];
     if (sum == value) {
       int leftCount = 1;
-      while (left + leftCount < right && arr[left] == arr[left + leftCount]) leftCount++;
+      while (left + leftCount < right &&
+        arr[left] == arr[left + leftCount]) leftCount++;
       int rightCount = 1;
-      while (right - rightCount > left && arr[right] == arr[right - rightCount]) rightCount++;
+      while (right - rightCount > left &&
+        arr[right] == arr[right - rightCount]) rightCount++;
       if (arr[left] == arr[right]) {
         int n = right - left + 1;
         count += n * (n - 1) / 2;
@@ -32,12 +32,8 @@ int countPairs2(int* arr, int len, int value)
         left += leftCount;
         right -= rightCount;
       }
-    }
-    else if (sum < value) {
-      left++;
-    } else {
-      right--;
-    }
+    } else if (sum < value) left++;
+    else right--;
   }
   return count;
 }
@@ -62,8 +58,7 @@ int countPairs3(int* arr, int len, int value)
       if (arr[mid] == target) {
         firstPos = mid;
         right = mid - 1;
-      }
-      else if (arr[mid] < target) left = mid + 1;
+      } else if (arr[mid] < target) left = mid + 1;
       else right = mid - 1;
     }
     if (firstPos != -1) {
@@ -75,8 +70,7 @@ int countPairs3(int* arr, int len, int value)
         if (arr[mid] == target) {
           lastPos = mid;
           left = mid + 1;
-        }
-        else if (arr[mid] < target) left = mid + 1;
+        } else if (arr[mid] < target) left = mid + 1;
         else right = mid - 1;
       }
       int rightCount = lastPos - firstPos + 1;
